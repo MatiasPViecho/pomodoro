@@ -11,7 +11,9 @@ export default function History() {
     <ul className="flex flex-col gap-2 p-2 border border-gray-600 rounded-sm">
       {dates && dates.length > 0 ? (
         dates.map((date) => (
-          <li>{`${date.getDay()} / ${date.getMonth()} / ${date.getFullYear()} - ${date.getHours()} : ${date.getMinutes()} : ${date.getSeconds()}`}</li>
+          <li
+            key={date.toISOString()}
+          >{`${date.getDay()} / ${date.getMonth()} / ${date.getFullYear()} - ${date.getHours()} : ${date.getMinutes()} : ${date.getSeconds()}`}</li>
         ))
       ) : (
         <></>

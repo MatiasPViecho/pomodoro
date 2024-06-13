@@ -41,7 +41,6 @@ export const getUserData = (): IUser => {
   return userDataParsed;
 }
 export const updateUserName = (newName: String): Promise<IActionStatus> => {
-  console.log(newName);
   return new Promise((resolve, reject) => {
     if(newName.length > 40) {
       reject({msg: "Name exceeds maximum length", success: false});

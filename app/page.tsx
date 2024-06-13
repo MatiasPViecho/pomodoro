@@ -4,16 +4,18 @@ import { DateProvider } from "@/contexts/useDateContext";
 import Button from "@/components/Button/Button";
 import { UserProvider } from "@/contexts/useUserContext";
 import { UserMenu } from "@/components/UserMenu/UserMenu";
-import { Suspense } from "react";
-import { getDictionary } from "./[lang]/dictionaries";
-export default async function Home() {
+import { useTranslations } from "next-intl";
+interface IHome {
+  params: { lang: string };
+}
+export default function Home() {
+  const t = useTranslations("Index");
   return (
     <main>
       <UserProvider>
         <DateProvider>
-          <Suspense fallback={<div>loading...</div>}>
-            <UserMenu dictionary={await getDictionary("en")} />
-          </Suspense>
+          <UserMenu />
+          <h1>{t("title")}</h1>
           <Timer />
           <Button />
           <History />
