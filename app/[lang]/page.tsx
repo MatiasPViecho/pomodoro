@@ -5,14 +5,18 @@ import Button from "@/components/Button/Button";
 import { UserProvider } from "@/contexts/useUserContext";
 import { UserMenu } from "@/components/UserMenu/UserMenu";
 import { Suspense } from "react";
-import { getDictionary } from "./[lang]/dictionaries";
-export default async function Home() {
+import { getDictionary } from "./dictionaries";
+interface IHome {
+  params: { lang: string };
+}
+export default async function Home({ params: { lang } }: IHome) {
+  const dict = await getDictionary(lang); // en
   return (
     <main>
       <UserProvider>
         <DateProvider>
           <Suspense fallback={<div>loading...</div>}>
-            <UserMenu dictionary={await getDictionary("en")} />
+            <UserMenu dictionary={dict} />
           </Suspense>
           <Timer />
           <Button />

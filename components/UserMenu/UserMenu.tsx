@@ -2,7 +2,10 @@
 import { useContext, useState, useEffect } from "react";
 import UserContext from "@/contexts/useUserContext";
 import { IUser, defaultUser } from "@/utils/storage";
-export const UserMenu = () => {
+interface IUserMenuDictionary {
+  dictionary: { user_menu: { greeting: string } };
+}
+export const UserMenu = ({ dictionary }: IUserMenuDictionary) => {
   const [username, setUsername] = useState<string | null>();
   const context = useContext(UserContext);
   if (!context) {
@@ -24,7 +27,9 @@ export const UserMenu = () => {
     <div className="flex flex-col gap-4 rounded-md px-4 py-8 min-w-20 bg-white text-black">
       {username && username !== "" ? (
         <div>
-          <span>Welcome back {username}!</span>
+          <span>
+            {dictionary?.user_menu?.greeting} {username}!
+          </span>
         </div>
       ) : (
         <div>
