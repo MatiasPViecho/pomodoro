@@ -21,13 +21,15 @@ export const NameChangerContainer = () => {
   };
   const changeRealName = () => {
     if (!currentName) {
+      throw new Error(errors("change_name.unexistent"));
+    } else if (currentName === getUserData().name) {
+      throw new Error(errors("change_name.same_name"));
+    } else if (currentName.length >= 16) {
       throw new Error(
-        errors("Errors.over_limit", {
+        errors("change_name.over_limit", {
           char_length: `${MAX_NAME_CHARACTER_LENGTH}`,
         })
       );
-    } else if (currentName === getUserData().name) {
-      throw new Error(errors("Errors.unexistent"));
     }
     updateUserName(currentName);
   };

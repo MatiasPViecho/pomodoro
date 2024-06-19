@@ -10,7 +10,8 @@
   "Errors": {
     "change_name":{
       "over_limit": "No puede exceder los {char_length} caracteres!",
-      "unexistent": "Debe proporcionar un nombre!"
+      "unexistent": "Debe proporcionar un nombre!",
+      "same_name": "El nombre no puede ser el mismo que el actual"
     }
   }
 }

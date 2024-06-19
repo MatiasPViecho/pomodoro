@@ -4,7 +4,6 @@ import UserContext from "@/contexts/useUserContext";
 import { IUser, defaultUser } from "@/utils/storage";
 interface IUserMenuDictionary {}
 export const UserMenu = ({}: IUserMenuDictionary) => {
-  const [username, setUsername] = useState<string | null>();
   const context = useContext(UserContext);
   if (!context) {
     throw new Error("undefined UserContext");
@@ -16,16 +15,11 @@ export const UserMenu = ({}: IUserMenuDictionary) => {
       context?.updateUsernameContext(chosenName);
     }
   }
-  useEffect(() => {
-    if (user) {
-      setUsername(user.name);
-    }
-  }, [user]);
   return (
     <div className="flex flex-col gap-4 rounded-md px-4 py-8 min-w-20 bg-white text-black">
-      {username && username !== "" ? (
+      {user && user.name && user.name !== "" ? (
         <div>
-          <span>hellow {username}!</span>
+          <span>hellow {user.name}!</span>
         </div>
       ) : (
         <div>
