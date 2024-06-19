@@ -1,5 +1,16 @@
 {
   "Index": {
-    "title": "Hello world!"
+    "title": "Hello world!",
+    "change_name": {
+      "cta": "Wanna change your name?",
+      "regret": "I don't want to change it",
+      "action": "Change to {name}"
+    }
+  },
+  "Errors": {
+    "change_name":{
+      "over_limit": "Name can't exceed {char_length} characters",
+      "unexistent": "A name is needed!"
+    }
   }
 }

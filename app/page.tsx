@@ -6,13 +6,16 @@ import { UserProvider } from "@/contexts/useUserContext";
 import { UserMenu } from "@/components/UserMenu/UserMenu";
 import { useTranslations } from "next-intl";
 import { Container } from "@/components/Container";
+import { NameChanger } from "@/components/NameChanger/NameChanger";
+import { NameChangerContainer } from "@/components/NameChanger/NameChangerContainer";
 export default function Home() {
   const t = useTranslations("Index");
   return (
     <main>
       <UserProvider>
         <DateProvider>
-          <Container status="info">
+          <Container>
+            <NameChangerContainer />
             <UserMenu />
             <Timer />
             <Button />

@@ -1,11 +1,10 @@
 import { ReactNode } from "react";
 interface IContainer {
   children: ReactNode;
-  status: "info" | "running" | "ended";
 }
-export const Container = ({ children, status = "info" }: IContainer) => {
+export const Container = ({ children }: IContainer) => {
   return (
-    <div className="border rounded-t-[64px] rounded-l-2xl rounded-r-2xl rounded-b-[32px] bg-pomodoro-grey">
+    <div className="relative rounded-tl-[64px] rounded-tr-[32px] rounded-br-[32px] rounded-bl-[16px] bg-pomodoro-grey border-pomodoro-border shadow-inner border-2 border-l-4 border-b-4 pt-16 ">
       {children}
     </div>
   );
