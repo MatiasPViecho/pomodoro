@@ -14,6 +14,17 @@ const config: Config = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
     },
+    colors: {
+      'pomodoro-black': '#0F1108',
+      'pomodoro-bg': "#241909",
+      'pomodoro-sky': '#00F6ED',
+      'pomodoro-purple': '#8A1C7C',
+      'pomodoro-grey': '#CAD8DE',
+      'pomodoro-brown': '#645853',
+      'pomodoro-border': "#1E1E1E",
+      'pomodoro-salmon': '#E16F7C',
+      'pomodoro-green': '#2E382E',
+    }
   },
   plugins: [],
 };

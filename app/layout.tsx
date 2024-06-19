@@ -21,7 +21,11 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <NextIntlClientProvider messages={messages}>
-        <body className={inter.className}>{children}</body>
+        <body
+          className={`${inter.className} m-2 mt-56 bg-pomodoro-bg min-h-screen`}
+        >
+          {children}
+        </body>
       </NextIntlClientProvider>
     </html>
   );
