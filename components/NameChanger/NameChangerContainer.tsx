@@ -1,10 +1,12 @@
 "use client";
 import { useState } from "react";
-import { getUserData, updateUserName } from "@/utils/storage";
+import { updateUserName } from "@/utils/storage";
 import { NameChanger } from "./NameChanger";
 import { useTranslations } from "next-intl";
 import { MAX_NAME_CHARACTER_LENGTH } from "@/constants/user";
+import { useUser } from "@/contexts/useUserContext";
 export const NameChangerContainer = () => {
+  const { userData, asyncUserInfo } = useUser();
   const [active, isActive] = useState<boolean>(false);
   const [currentName, setCurrentName] = useState<string>("");
   const t = useTranslations("Index.change_name");
@@ -19,10 +21,10 @@ export const NameChangerContainer = () => {
   const changeCurrentName = (newName: string) => {
     setCurrentName(newName);
   };
-  const changeRealName = () => {
+  const changeRealName = async () => {
     if (!currentName) {
       throw new Error(errors("change_name.unexistent"));
-    } else if (currentName === getUserData().name) {
+    } else if (currentName === userData.data?.name) {
       throw new Error(errors("change_name.same_name"));
     } else if (currentName.length >= 16) {
       throw new Error(
@@ -31,7 +33,9 @@ export const NameChangerContainer = () => {
         })
       );
     }
-    updateUserName(currentName);
+    updateUserName(currentName).then(() => {
+      asyncUserInfo();
+    });
   };
   return (
     <div className="absolute top-4 right-4 flex flex-col text-right">

@@ -1,5 +1,12 @@
 "use client";
-import { createContext, ReactNode, useState } from "react";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import {
   addCategoryStorage,
   getUserData,
@@ -7,11 +14,6 @@ import {
   IUser,
   updateUserName,
 } from "@/utils/storage";
-interface IUserContext {
-  user: IUser;
-  updateUsernameContext: (newUser: string) => void;
-  addCategory: (newCategory: string) => IActionStatus;
-}
 interface IUserProvider {
   children: ReactNode;
 }
@@ -19,10 +21,44 @@ interface IUserState {
   loading: boolean;
   data: IUser | null;
 }
+interface IUserContext {
+  userData: IUserState;
+  asyncUserInfo: () => void;
+}
 const UserContext = createContext<IUserContext | undefined>(undefined);
 export const UserProvider = ({ children }: IUserProvider) => {
   const [user, setUser] = useState<IUserState>({ loading: false, data: null });
-  return <UserContext.Provider>{children}</UserContext.Provider>;
+  useEffect(() => {
+    asyncUserInfo();
+  }, []);
+  const asyncUserInfo = async () => {
+    setUser((prev) => ({ ...prev, loading: true }));
+    const res = await getUserData();
+    if (res) {
+      setUser({
+        loading: false,
+        data: res,
+      });
+    }
+    setUser((prev) => ({ ...prev, loading: false }));
+  };
+  const contextValues = useMemo(() => {
+    return {
+      userData: user,
+      asyncUserInfo,
+    };
+  }, [user]);
+  return (
+    <UserContext.Provider value={contextValues}>
+      {children}
+    </UserContext.Provider>
+  );
 };
 
-export default UserContext;
+export function useUser() {
+  const context = useContext(UserContext);
+  if (!context) {
+    throw new Error("User Context Error");
+  }
+  return context;
+}

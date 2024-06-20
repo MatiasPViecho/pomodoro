@@ -1,30 +1,22 @@
 "use client";
 import { useContext, useState, useEffect } from "react";
-import UserContext from "@/contexts/useUserContext";
 import { IUser, defaultUser } from "@/utils/storage";
+import { useUser } from "@/contexts/useUserContext";
 interface IUserMenuDictionary {}
 export const UserMenu = ({}: IUserMenuDictionary) => {
-  const context = useContext(UserContext);
-  if (!context) {
-    throw new Error("undefined UserContext");
-  }
-  const user: IUser | null = context.user ? context.user : null;
-  async function addNewUser(formData: FormData) {
-    const chosenName = formData.get("name");
-    if (chosenName && typeof chosenName === "string") {
-      context?.updateUsernameContext(chosenName);
-    }
-  }
+  const { userData, asyncUserInfo } = useUser();
+  const userExists = userData && userData.data && !userData.loading;
+  const addNewUser = (e: FormData) => {};
   return (
     <div className="flex flex-col gap-4 rounded-md px-4 py-8 min-w-20 bg-white text-black">
-      {user && user.name && user.name !== "" ? (
+      {userExists && userData.data?.name !== "" ? (
         <div>
-          <span>hellow {user.name}!</span>
+          <span>hellow {userData.data?.name}!</span>
         </div>
       ) : (
         <div>
           <span>Hello! What&apos;s your name?</span>
-          <form action={addNewUser}>
+          <form action={(e) => addNewUser(e)}>
             <div className="flex flex-col gap-2">
               <label className="text-gray-600 font-light">new username</label>
               <input
