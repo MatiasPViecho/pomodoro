@@ -15,22 +15,14 @@ interface IUserContext {
 interface IUserProvider {
   children: ReactNode;
 }
+interface IUserState {
+  loading: boolean;
+  data: IUser | null;
+}
 const UserContext = createContext<IUserContext | undefined>(undefined);
 export const UserProvider = ({ children }: IUserProvider) => {
-  const [user, setUser] = useState<IUser>(getUserData());
-  const updateUsernameContext = (newName: String): void => {
-    updateUserName(newName).then(() => {
-      setUser(getUserData());
-    });
-  };
-  const addCategory = (category: string): IActionStatus => {
-    return addCategoryStorage(category);
-  };
-  return (
-    <UserContext.Provider value={{ user, updateUsernameContext, addCategory }}>
-      {children}
-    </UserContext.Provider>
-  );
+  const [user, setUser] = useState<IUserState>({ loading: false, data: null });
+  return <UserContext.Provider>{children}</UserContext.Provider>;
 };
 
 export default UserContext;
