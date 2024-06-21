@@ -7,16 +7,13 @@ import { UserMenu } from "@/components/UserMenu/UserMenu";
 import { useTranslations } from "next-intl";
 import { Container } from "@/components/Container";
 import { NameChangerContainer } from "@/components/NameChanger/NameChangerContainer";
-import { Toast } from "@/components/Toast/Toast";
 import { Fragment } from "react";
+import { ToastContainer } from "@/components/Toast/ToastContainer";
 export default function Home() {
   const t = useTranslations("Index");
   return (
     <Fragment>
-      <div className="absolute bottom-4 flex flex-col gap-2 w-full mx-auto">
-        <Toast msg="test" type="info" />
-        <Toast msg="test warning" type="warning" />
-      </div>
+      <ToastContainer />
       <main>
         <UserProvider>
           <DateProvider>

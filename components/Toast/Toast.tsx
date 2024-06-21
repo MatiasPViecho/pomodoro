@@ -1,4 +1,3 @@
-"use server";
 interface IToast {
   msg: string;
   type: string;
@@ -15,7 +14,7 @@ const checkTypeValidity = (type: string): boolean => {
       return false;
   }
 };
-export const Toast = ({ msg, type }: IToast) => {
+export const Toast = ({ msg = "", type = "info" }: IToast) => {
   const finalType = checkTypeValidity(type) ? type : "info";
   const typeClassNames: { [key: string]: string } = {
     info: "gray-300",
