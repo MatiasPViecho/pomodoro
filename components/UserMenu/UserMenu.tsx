@@ -1,10 +1,8 @@
 "use client";
-import { useContext, useState, useEffect } from "react";
-import { IUser, defaultUser } from "@/utils/storage";
 import { useUser } from "@/contexts/useUserContext";
 interface IUserMenuDictionary {}
 export const UserMenu = ({}: IUserMenuDictionary) => {
-  const { userData, asyncUserInfo } = useUser();
+  const { userData } = useUser();
   const userExists = userData && userData.data && !userData.loading;
   const addNewUser = (e: FormData) => {};
   return (

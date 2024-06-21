@@ -35,6 +35,7 @@ export const NameChangerContainer = () => {
     }
     updateUserName(currentName).then(() => {
       asyncUserInfo();
+      deactivateNameChange();
     });
   };
   return (
