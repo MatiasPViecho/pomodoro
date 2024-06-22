@@ -28,10 +28,10 @@ const config: Config = {
   },
   plugins: [],
   safelist:[
-    'bg-gray-300',
-    'bg-yellow-300',
-    'bg-green-300',
-    'bg-red-300'
+    {
+      pattern: /bg-(gray|green|yellow|red)-(500|100)/,
+    },
+    {pattern: /border-l-(gray|green|yellow|red)-(500|100)/,}
   ]
 };
 export default config;

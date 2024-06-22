@@ -1,3 +1,4 @@
+import { generateUUID } from "@/helpers/UUID";
 export interface IActionStatus {
   success: boolean,
   msg: string,
@@ -21,15 +22,7 @@ export const defaultUser: IUser = {
   runningTimer: null,
   previousTimer: [],
 }
-const UUID = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx";
-const generateUUID = (): string => {
-  const newUUID = UUID;
-  return newUUID.replace(/[xy]/g, function (x) {
-    const r = (Math.random() * 16) | 0,
-      v = x === "x" ? r : (r & 0x3) | 0x8;
-    return v.toString(16);
-  })
-}
+
 export const getUserData = async (): Promise<IUser> => {
   const userDataString: string | null = typeof localStorage != 'undefined' ? (localStorage.getItem('user')) : null;
   const userDataParsed = userDataString ? JSON.parse(userDataString) : null;

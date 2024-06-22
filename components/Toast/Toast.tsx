@@ -1,7 +1,11 @@
 interface IToast {
   msg: string;
   type: string;
+  duration: number;
+  removeSelf: () => void;
 }
+const TIME_TO_STOP_ANIMATION = 1200;
+const TIME_TO_REMOVE_SELF_PROCESS = 800;
 const checkTypeValidity = (type: string): boolean => {
   switch (type) {
     case "success":
@@ -14,19 +18,35 @@ const checkTypeValidity = (type: string): boolean => {
       return false;
   }
 };
-export const Toast = ({ msg = "", type = "info" }: IToast) => {
+export const Toast = ({
+  msg = "",
+  type = "info",
+  duration,
+  removeSelf,
+}: IToast) => {
   const finalType = checkTypeValidity(type) ? type : "info";
+  setTimeout(() => {
+    removeSelf();
+  }, duration);
   const typeClassNames: { [key: string]: string } = {
-    info: "gray-300",
-    warning: "yellow-300",
-    success: "green-300",
-    danger: "red-300",
+    info: "gray",
+    warning: "yellow",
+    success: "green",
+    danger: "red",
+  };
+  const startRemoveProcess = () => {
+    setTimeout(() => {
+      removeSelf();
+    }, TIME_TO_REMOVE_SELF_PROCESS);
   };
   return (
-    <span
-      className={`bg-${typeClassNames[finalType]}  text-center px-12 py-2 rounded text-black font-bold uppercase`}
+    <button
+      onClick={() => startRemoveProcess()}
+      className={`transition-all w-full max-w-72 bg-${typeClassNames[finalType]}-100 shadow-md text-left px-2 pl-4 py-2 rounded text-black font-light uppercase
+      border-l-8 border-l-${typeClassNames[finalType]}-500
+     `}
     >
       {msg}
-    </span>
+    </button>
   );
 };

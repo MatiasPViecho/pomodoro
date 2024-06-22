@@ -9,24 +9,27 @@ import { Container } from "@/components/Container";
 import { NameChangerContainer } from "@/components/NameChanger/NameChangerContainer";
 import { Fragment } from "react";
 import { ToastContainer } from "@/components/Toast/ToastContainer";
+import { ToastProvider } from "@/contexts/ToastContext";
 export default function Home() {
   const t = useTranslations("Index");
   return (
     <Fragment>
-      <ToastContainer />
-      <main>
-        <UserProvider>
-          <DateProvider>
-            <Container>
-              <NameChangerContainer />
-              <UserMenu />
-              <Timer />
-              <Button />
-              <History />
-            </Container>
-          </DateProvider>
-        </UserProvider>
-      </main>
+      <ToastProvider>
+        <ToastContainer />
+        <main>
+          <UserProvider>
+            <DateProvider>
+              <Container>
+                <NameChangerContainer />
+                <UserMenu />
+                <Timer />
+                <Button />
+                <History />
+              </Container>
+            </DateProvider>
+          </UserProvider>
+        </main>
+      </ToastProvider>
     </Fragment>
   );
 }
